@@ -1,4 +1,4 @@
-package netty.demo.client.app;
+package netty.test.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,26 +50,18 @@ public class AppClientBootstrap
     
     private void run() throws InterruptedException, SSLException
     {
-	// final SslContext sslCtx = SslContext.newClientContext(InsecureTrustManagerFactory.INSTANCE);
 	EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 	Bootstrap bootstrap = new Bootstrap();
 	bootstrap.channel(NioSocketChannel.class);
 	bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
 	bootstrap.group(eventLoopGroup);
-	// bootstrap.remoteAddress(HOST, PORT);
 	bootstrap.handler(new ChannelInitializer<SocketChannel>()
 	{
 	    @Override
 	    protected void initChannel(SocketChannel socketChannel) throws Exception
 	    {
 		ChannelPipeline pipeline = socketChannel.pipeline();
-		// SSLEngine engine = SslContextFactory.getClientContext().createSSLEngine();
-		// engine.setUseClientMode(true);
-		// pipeline.addLast("ssl", new SslHandler(engine));
-		// pipeline.addLast(sslCtx.newHandler(socketChannel.alloc(),HOST,PORT));
 		pipeline.addLast(new IdleStateHandler(20, 10, 0));
-//		pipeline.addLast(new NettyEncode());
-//		pipeline.addLast(new NettyDecode());
 		pipeline.addLast(new NettyCodec());
 		pipeline.addLast(new AppClientHandler());
 	    }

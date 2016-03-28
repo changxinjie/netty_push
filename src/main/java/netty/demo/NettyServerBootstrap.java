@@ -13,8 +13,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import netty.demo.codec.NettyCodec;
-import netty.demo.codec.NettyDecode;
-import netty.demo.codec.NettyEncode;
 import netty.demo.ssl.NettyServerHandler;
 import netty.demo.util.PropertityUtil;
 
@@ -44,8 +42,6 @@ public class NettyServerBootstrap
 	    {
 		ChannelPipeline pipeline = socketChannel.pipeline();
 
-//		pipeline.addLast(new NettyDecode());
-//		pipeline.addLast(new NettyEncode());
 		pipeline.addLast(new NettyCodec());
 		pipeline.addLast(new NettyServerHandler());
 	    }

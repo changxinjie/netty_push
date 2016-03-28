@@ -1,4 +1,4 @@
-package netty.demo.client.app;
+package netty.test.client;
 
 import java.util.logging.Logger;
 
